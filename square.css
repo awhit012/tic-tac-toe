@@ -1,0 +1,27 @@
+.square {
+	width: 200px;
+	height: 200px;
+	text-align: center;
+	font-size: 8em;
+	box-sizing: border-box;
+}
+	
+#s1 {
+	border-top: none !important; 
+	border: 2px solid grey;
+}
+
+#s3 {
+	border-left: none !important; 
+	border: 2px solid grey;
+}
+
+#s5 {
+	border-right: none !important; 
+	border: 2px solid grey;
+}
+
+#s7 {
+	border-bottom: none !important; 
+	border: 2px solid grey;
+}

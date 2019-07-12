@@ -13,10 +13,13 @@ class Board {
 		const tr = document.createElement('tr')
 		const tr2 = tr.cloneNode()
 		const tr3 = tr.cloneNode()
+		context.tds = []
+		let useContext = this.props.gameOver
 		for(let i=0; i<9; i++) {
 			context.tds.push(Square(
 				Object.freeze({
-					id: i
+					id: `s${i}`,
+					useContext: useContext
 				})
 			))
 		}
@@ -30,7 +33,7 @@ class Board {
 				tr3.appendChild(td)
 			}
 		})
-
+		// do I need thead etc?
 		thead.appendChild(tr)
 		tbody.appendChild(tr2)
 		tfoot.appendChild(tr3)
@@ -44,7 +47,8 @@ class Board {
 			border-collapse: collapse;
 			margin: 0 auto;`
 		boardEl.id = "board"
-		boardEl.addEventListener("click", this.props.addLetter)
+		// implement fully
+		this.props.gameOver ? "" : boardEl.addEventListener("click", this.props.addLetter)
 		return boardEl
 	}
 	

@@ -9,10 +9,11 @@ class App {
 		this.render()
 	}
 
-	boardProps() {
+	boardProps(options) {
 		return Object.freeze({
 			toggleTurn: this.toggleTurn, 
-			declareWinner: this.declareWinner
+			declareWinner: this.declareWinner,
+			gameOver: options.gameOver
 		})
 	}
 
@@ -22,24 +23,26 @@ class App {
 		return context.turn
 	}
 
-	declareWinner() {
-		console.log(`winner: ${context.turn}`)
+	declareWinner = () => {
+		this.updateScoreBoard(true)
+		app.replaceChild(
+			new BoardContainer(this.boardProps({gameOver: true})), board )
 	}
 	
-	updateScoreBoard() {
+	updateScoreBoard(winner) {
 		const scoreBoard = document.getElementById("scoreBoard")
 		app.replaceChild(
 			ScoreBoard(Object.freeze({
-				clearBoard: this.clearBoard
+				clearBoard: this.clearBoard,
+				winner: winner
 			})), scoreBoard)
 	}
 
-	clearBoard() {
+	clearBoard = () => {
 		let board = document.getElementById("board")
 		context.turn = "X"
-
 		app.replaceChild(
-			new BoardContainer(this.boardProps()), board )
+			new BoardContainer(this.boardProps({})), board )
 	}
 
 	render() {
@@ -49,7 +52,7 @@ class App {
 			})))
 		
 		app.appendChild(
-			new BoardContainer(this.boardProps())
+			new BoardContainer(this.boardProps({}))
 		)
 	}
 }

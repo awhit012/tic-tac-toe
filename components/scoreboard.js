@@ -8,7 +8,11 @@ const ScoreBoard = (props) => {
 	btn.addEventListener("click", props.clearBoard)
 
 	const h2 = document.createElement('h2')
-	h2.innerHTML = `It's ${context.turn}'s turn!`
+	if(props.winner) {
+		h2.innerHTML = `You won ${context.turn}!!!`
+	} else {
+		h2.innerHTML = `It's ${context.turn}'s turn!`
+	}
 
 	board.appendChild(h1)
 	board.appendChild(btn)

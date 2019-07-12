@@ -83,7 +83,6 @@ class BoardContainer {
 	}
 
 	diagonalWin = () => {
-		// debugger
 		let result =  
 			(context.tds[0].innerHTML === context.tds[4].innerHTML) && 
 				(context.tds[4].innerHTML === context.tds[8].innerHTML)  && 
@@ -101,25 +100,28 @@ class BoardContainer {
 
 	replaceSquare(square) {
 		let newSquare = Square({id: square.id, useContext: true })
-    square.parentElement.replaceChild(newSquare, square )
+    	square.parentElement.replaceChild(newSquare, square )
 		let index = context.tds.findIndex(sqr => sqr.id == square.id);
 		context.tds[index] = newSquare;
 	}
 
-  addLetter = (e) => {
+  	addLetter = (e) => {
 	 	const square = event.target
 	 	if(this.squareNotTaken(square)) {
 	 		this.replaceSquare(square)
-			this.isWinner() ? this.props.declareWinner() : null
-			context.turn = this.props.toggleTurn()
+	 		if(this.isWinner()) {
+	 			this.props.declareWinner()
+	 			return
+	 		} else {
+				context.turn = this.props.toggleTurn()
+	 		}
 	 	}
 	}
 	
 	render() {
 		let props = Object.freeze({
 			addLetter: this.addLetter,
-			isWinner: this.isWinner, 
-			componentDidMount: this.componentDidMount
+			gameOver: this.props.gameOver
 		})
 		return(new Board(props))
 	}	
